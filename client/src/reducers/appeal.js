@@ -11,12 +11,15 @@ import {
     GET_APPEAL_REGISTRAR,
     GET_APPEALS_APPELLANT,
     GET_APPEAL_APPELLANT,
+    SET_DATE_DOCSUB,
+    GET_DATE_DOCSUB,
 } from '../actions/types';
 
 const initialState = {
     appeals: [],
     appeal: null,
     dateOfHearing: null,
+    dateOfDocSub: null,
     loading: true,
     error: {},
 };
@@ -66,6 +69,13 @@ export default function (state = initialState, action) {
                     (appeal) => appeal.id !== payload
                 ),
                 loading: false,
+            };
+
+        case SET_DATE_DOCSUB:
+        case GET_DATE_DOCSUB:
+            return {
+                ...state,
+                dateOfDocSub: payload.dateOfSubmission,
             };
 
         case APPEAL_DATE:

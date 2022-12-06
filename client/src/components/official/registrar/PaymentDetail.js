@@ -57,7 +57,7 @@ const PaymentDetail = ({ paymentDetail, match, payment: { detail } }) => {
                                                 padding: '0 .2rem',
                                             }}
                                         >
-                                            <i class="fa-solid fa-circle-check"></i>{' '}
+                                            <i className="fa-solid fa-circle-check"></i>{' '}
                                             Success
                                         </button>
                                     </td>

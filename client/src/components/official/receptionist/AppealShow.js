@@ -4,8 +4,6 @@ import { getAppeal } from '../../../actions/appeal';
 import { withRouter } from 'react-router-dom';
 import { forwardToRegistrar } from '../../../actions/appeal';
 import { upload } from '../../../actions/files';
-import Message from '../../common/Message';
-import ProgressBar from '../../common/ProgressBar';
 
 const AppealShow = ({
     getAppeal,

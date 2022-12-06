@@ -40,10 +40,6 @@ const AppealForward = ({ match, forwardToRegistrar, history }) => {
                     </h6>
                 </div>
                 <div className="card-body">
-                    <h2 className="mb-3">
-                        Are you Sure you want to forward the appeal to the
-                        Registrar?
-                    </h2>
                     <form onSubmit={onForward}>
                         <div className="row mb-3">
                             <div className="col-md-6">

@@ -14,135 +14,105 @@ const Checklist = sequelize.define(
 
         appeal_num: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         complaint_num: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         appellant: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         respondent: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         section_num: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         is_appeal_competent: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
 
         is_name_address_correct: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         is_ordercopy_attached: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         date_of_order: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_of_communication: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_of_application: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_on_copy_ready: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_of_receipt: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_of_filing: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         date_of_submission_hardcopy: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
         is_delay_on_submission: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         amount_of_delay_on_submission: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         is_appeal_filed_within_limitation: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         is_delay_in_filing: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         amount_of_delay_in_filing: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         is_condonation_of_delay_filed: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         objection_for_condonation: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
 
         is_fees_paid: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
 
         date_of_payment: {
             type: Sequelize.DATEONLY,
-            allowNull: false,
         },
 
         is_pagination_correct: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
 
         legible_docs: {
             type: Sequelize.STRING,
-            allowNull: false,
         },
         is_appeal_memo_annexed: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         is_served_by_post: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         is_auth_stamped: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
         is_email_phone_on_record: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+            type: Sequelize.STRING,
         },
     },
     { timestamps: false }

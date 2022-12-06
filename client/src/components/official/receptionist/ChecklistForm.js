@@ -1,213 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { createChecklist, getChecklist } from '../../../actions/checklist';
+import React from 'react';
 
-const Checklist = ({
-    createChecklist,
-    getChecklist,
-    match,
-    history,
-    checklist: { checklist, loading },
+const ChecklistForm = ({
+    formData,
+    onChange,
+    onSubmit,
+    formError,
+    setFormData,
 }) => {
-    const [formData, setFormData] = useState({
-        appealNum: '',
-        complaintNum: '',
-        appellant: '',
-        respondent: '',
-        sectionNum: '',
-        isAppealCompetent: false,
-        isNameAddressCorrect: false,
-        isOrdercopyAttached: false,
-        dateOfOrder: '',
-        dateOfCommunication: '',
-        dateOfApplication: '',
-        dateOnCopyReady: '',
-        dateOfReceipt: '',
-        dateOfFiling: '',
-        dateOfSubmissionHardcopy: '',
-        isDelayOnSubmission: '',
-        amountOfDelayOnSubmission: '',
-        isAppealFiledWithinLimitation: false,
-        isDelayInFiling: false,
-        amountOfDelayInFiling: '',
-        isCondonationOfDelayFiled: false,
-        objectionForCondonation: '',
-        isFeesPaid: false,
-        dateOfPayment: '',
-        isPaginationCorrect: '',
-        legibleDocs: '',
-        isAppealMemoAnnexed: false,
-        isServedByPost: false,
-        isAuthStamped: false,
-        isEmailPhoneOnRecord: false,
-    });
-
-    useEffect(() => {
-        const { id } = match.params;
-        getChecklist(id);
-
-        setFormData({
-            appealNum:
-                loading || !checklist.appeal_num ? '' : checklist.appeal_num,
-            complaintNum:
-                loading || !checklist.complaint_num
-                    ? ''
-                    : checklist.complaint_num,
-            appellant:
-                loading || !checklist.appellant ? '' : checklist.appellant,
-
-            respondent:
-                loading || !checklist.respondent ? '' : checklist.respondent,
-
-            sectionNum:
-                loading || !checklist.section_num ? '' : checklist.section_num,
-
-            isAppealCompetent:
-                loading || !checklist.is_appeal_competent
-                    ? ''
-                    : String(Number(checklist.is_appeal_competent)),
-
-            isNameAddressCorrect:
-                loading || !checklist.is_name_address_correct
-                    ? ''
-                    : String(Number(checklist.is_name_address_correct)),
-
-            isOrdercopyAttached:
-                loading || !checklist.is_ordercopy_attached
-                    ? ''
-                    : String(Number(checklist.is_ordercopy_attached)),
-
-            dateOfOrder:
-                loading ||
-                !checklist.date_of_order ||
-                checklist.date_of_order === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_order,
-
-            dateOfCommunication:
-                loading ||
-                !checklist.date_of_communication ||
-                checklist.date_of_communication === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_communication,
-
-            dateOfApplication:
-                loading ||
-                !checklist.date_of_application ||
-                checklist.date_of_application === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_application,
-
-            dateOnCopyReady:
-                loading ||
-                !checklist.date_on_copy_ready ||
-                checklist.date_on_copy_ready === '1970-01-01'
-                    ? ''
-                    : checklist.date_on_copy_ready,
-
-            dateOfReceipt:
-                loading ||
-                !checklist.date_of_receipt ||
-                checklist.date_of_receipt === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_receipt,
-
-            dateOfFiling:
-                loading ||
-                !checklist.date_of_filing ||
-                checklist.date_of_filing === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_filing,
-
-            dateOfSubmissionHardcopy:
-                loading ||
-                !checklist.date_of_submission_hardcopy ||
-                checklist.date_of_submission_hardcopy === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_submission_hardcopy,
-
-            isDelayOnSubmission:
-                loading || !checklist.is_delay_on_submission
-                    ? ''
-                    : String(Number(checklist.is_delay_on_submission)),
-
-            amountOfDelayOnSubmission:
-                loading || !checklist.amount_of_delay_on_submission
-                    ? ''
-                    : checklist.amount_of_delay_on_submission,
-
-            isAppealFiledWithinLimitation:
-                loading || !checklist.is_appeal_filed_within_limitation
-                    ? ''
-                    : String(
-                          Number(checklist.is_appeal_filed_within_limitation)
-                      ),
-
-            isDelayInFiling:
-                loading || !checklist.is_delay_in_filing
-                    ? ''
-                    : String(Number(checklist.is_delay_in_filing)),
-
-            amountOfDelayInFiling:
-                loading || !checklist.amount_of_delay_in_filing
-                    ? ''
-                    : checklist.amount_of_delay_in_filing,
-
-            isCondonationOfDelayFiled:
-                loading || !checklist.is_condonation_of_delay_filed
-                    ? ''
-                    : String(Number(checklist.is_condonation_of_delay_filed)),
-
-            objectionForCondonation:
-                loading || !checklist.objection_for_condonation
-                    ? ''
-                    : checklist.objection_for_condonation,
-
-            isFeesPaid:
-                loading || !checklist.is_fees_paid
-                    ? ''
-                    : String(Number(checklist.is_fees_paid)),
-
-            dateOfPayment:
-                loading ||
-                !checklist.date_of_payment ||
-                checklist.date_of_payment === '1970-01-01'
-                    ? ''
-                    : checklist.date_of_payment,
-
-            isPaginationCorrect:
-                loading || !checklist.is_pagination_correct
-                    ? ''
-                    : String(Number(checklist.is_pagination_correct)),
-
-            legibleDocs:
-                loading || !checklist.legible_docs
-                    ? ''
-                    : checklist.legible_docs,
-
-            isAppealMemoAnnexed:
-                loading || !checklist.is_appeal_memo_annexed
-                    ? ''
-                    : String(Number(checklist.is_appeal_memo_annexed)),
-
-            isServedByPost:
-                loading || !checklist.is_served_by_post
-                    ? ''
-                    : String(Number(checklist.is_served_by_post)),
-
-            isAuthStamped:
-                loading || !checklist.is_auth_stamped
-                    ? ''
-                    : String(Number(checklist.is_auth_stamped)),
-
-            isEmailPhoneOnRecord:
-                loading || !checklist.is_email_phone_on_record
-                    ? ''
-                    : String(Number(checklist.is_email_phone_on_record)),
-        });
-    }, [loading]);
-
     const {
         appealNum,
         complaintNum,
@@ -241,184 +40,16 @@ const Checklist = ({
         isEmailPhoneOnRecord,
     } = formData;
 
-    const [formError, setFormError] = useState({});
-
-    const validate = (values) => {
-        const errors = {};
-
-        if (!values.appealNum) {
-            errors.appealNum = 'Appeal No. can not be empty';
-        }
-
-        if (!values.complaintNum) {
-            errors.complaintNum = 'Complaint No. can not be empty';
-        }
-        if (!values.appellant) {
-            errors.appellant = 'Appellants field can not be empty';
-        }
-        if (!values.respondent) {
-            errors.respondent = 'Respondent field can not be empty';
-        }
-
-        if (!values.sectionNum) {
-            errors.sectionNum = 'Section number can not be empty';
-        }
-
-        if (!values.isAppealCompetent) {
-            errors.isAppealCompetent = 'Please select a response';
-        }
-
-        if (!values.isNameAddressCorrect) {
-            errors.isNameAddressCorrect = 'Please select a response';
-        }
-
-        if (!values.isOrdercopyAttached) {
-            errors.isOrdercopyAttached = 'Please select a response';
-        }
-
-        if (!values.dateOfOrder) {
-            errors.dateOfOrder = 'Date of order can not be empty';
-        }
-
-        if (!values.dateOfCommunication) {
-            errors.dateOfCommunication =
-                'Date of communication can not be empty';
-        }
-        if (!values.dateOfApplication) {
-            errors.dateOfApplication = 'Date of application can not be empty';
-        }
-        if (!values.dateOnCopyReady) {
-            errors.dateOnCopyReady =
-                'Date on which the copy was ready field can not be empty';
-        }
-        if (!values.dateOfReceipt) {
-            errors.dateOfReceipt = 'Date of receipt can not be empty';
-        }
-        if (!values.dateOfFiling) {
-            errors.dateOfFiling = 'Date of online filling can not be empty';
-        }
-        if (!values.dateOfSubmissionHardcopy) {
-            errors.dateOfSubmissionHardcopy =
-                'Date of submission of hard copy can not be empty';
-        }
-
-        if (!values.isDelayOnSubmission) {
-            errors.isDelayOnSubmission = 'Please select a response';
-        }
-
-        if (
-            values.isDelayOnSubmission === '1' &&
-            !values.amountOfDelayOnSubmission
-        ) {
-            errors.amountOfDelayOnSubmission = 'This Field can not be empty';
-        }
-
-        if (!values.isAppealFiledWithinLimitation) {
-            errors.isAppealFiledWithinLimitation = 'Please select a response';
-        }
-
-        if (!values.isDelayInFiling) {
-            errors.isDelayInFiling = 'Please select a response';
-        }
-
-        if (values.isDelayInFiling === '1' && !values.amountOfDelayInFiling) {
-            errors.amountOfDelayInFiling = 'This Field can not be empty';
-        }
-
-        if (!values.isCondonationOfDelayFiled) {
-            errors.isCondonationOfDelayFiled = 'Please select a response';
-        }
-
-        if (
-            values.isCondonationOfDelayFiled === '0' &&
-            !values.objectionForCondonation
-        ) {
-            errors.objectionForCondonation = 'This Field can not be empty';
-        }
-
-        if (!values.isFeesPaid) {
-            errors.isFeesPaid = 'Please select a response';
-        }
-
-        if (
-            values.isFeesPaid === '1' &&
-            values.dateOfPayment - new Date(0) === 0
-        ) {
-            errors.dateOfPayment = 'This Field can not be empty';
-        }
-
-        if (!values.isPaginationCorrect) {
-            errors.isPaginationCorrect = 'Please select a response';
-        }
-
-        if (values.isPaginationCorrect === '1' && !values.legibleDocs) {
-            errors.legibleDocs = 'This Field can not be empty';
-        }
-
-        if (!values.isAppealMemoAnnexed) {
-            errors.isAppealMemoAnnexed = 'Please select a response';
-        }
-
-        if (!values.isServedByPost) {
-            errors.isServedByPost = 'Please select a response';
-        }
-
-        if (!values.isAuthStamped) {
-            errors.isAuthStamped = 'Please select a response';
-        }
-
-        if (!values.isEmailPhoneOnRecord) {
-            errors.isEmailPhoneOnRecord = 'Please select a response';
-        }
-
-        return errors;
-    };
-
-    const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    // const handleCheck = (e) => {
-    //     setFormData({ ...formData, [e.target.name]: e.target.checked });
-    // };
-    const onSubmit = (e) => {
-        e.preventDefault();
-
-        setFormError(validate(formData));
-
-        const err = Object.keys(validate(formData));
-
-        if (err.length) {
-            let input =
-                document.querySelector(`input[name=${err[0]}]`) ||
-                document.querySelector(`select[name=${err[0]}]`) ||
-                document.querySelector(`textarea[name=${err[0]}]`);
-
-            input.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'start',
-            });
-        }
-
-        if (Object.keys(validate(formData)).length === 0) {
-            const { id } = match.params;
-            createChecklist(formData, id, history);
-        }
-    };
-
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Checklist - Update FORM A</h1>
+            <h1 className="h3 mb-2 text-gray-800">Checklist - FORM A</h1>
             <p className="mb-4">Checklist for Scrutiny Appeal</p>
             <div className="card shadow mb-4">
                 <div className="card-header py-3"></div>
                 <div className="card-body">
                     <div className="row g-3">
                         <div className="col-12">
-                            <h4>
-                                <h4 className="text-center fw-bold">FORM A</h4>
-                            </h4>
+                            <h4 className="text-center fw-bold">FORM A</h4>
                         </div>
 
                         <div className="col-12">
@@ -532,9 +163,6 @@ const Checklist = ({
                                     value={sectionNum}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.sectionNum}
-                                </p>
                             </div>
                             <div className="col-md-3">
                                 <label htmlFor="legalProvisions">
@@ -548,9 +176,6 @@ const Checklist = ({
                                     htmlFor="isAppealCompetent"
                                 >
                                     2. Whether the appeal is competent
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isAppealCompetent}
-                                    </p>
                                 </label>
                             </div>
 
@@ -594,9 +219,6 @@ const Checklist = ({
                                     3. Whether the name of the parties and their
                                     addresses are properly mentioned in the
                                     Appeal Memo
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isNameAddressCorrect}
-                                    </p>
                                 </label>
                             </div>
 
@@ -639,9 +261,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     4. Whether the copy of impugned
                                     order/Judgement is filed with the appeal
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isOrdercopyAttached}
-                                    </p>
                                 </label>
                             </div>
 
@@ -706,9 +325,6 @@ const Checklist = ({
                                     value={dateOfOrder}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfOrder}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -732,9 +348,6 @@ const Checklist = ({
                                     value={dateOfCommunication}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfCommunication}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -758,9 +371,6 @@ const Checklist = ({
                                     value={dateOfApplication}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfApplication}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -783,9 +393,6 @@ const Checklist = ({
                                     value={dateOnCopyReady}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOnCopyReady}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -808,9 +415,6 @@ const Checklist = ({
                                     value={dateOfReceipt}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfReceipt}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -833,9 +437,6 @@ const Checklist = ({
                                     value={dateOfFiling}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfFiling}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -859,9 +460,6 @@ const Checklist = ({
                                     value={dateOfSubmissionHardcopy}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfSubmissionHardcopy}
-                                </p>
                             </div>
 
                             <div className="col-md-1"></div>
@@ -870,9 +468,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     h. Whether there is any delay in submission
                                     of hard copy of Appeal Memo:
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isDelayOnSubmission}
-                                    </p>
                                 </label>
                             </div>
 
@@ -941,20 +536,12 @@ const Checklist = ({
                                     value={amountOfDelayOnSubmission}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.amountOfDelayOnSubmission}
-                                </p>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     6. Is appeal filed within limitation(60)
                                     days (from the date of receipt of order)
-                                    <p className="invalid-feedback d-block">
-                                        {
-                                            formError.isAppealFiledWithinLimitation
-                                        }
-                                    </p>
                                 </label>
                             </div>
 
@@ -1001,9 +588,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     7. Whether there is any delay in filing of
                                     appeal
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isDelayInFiling}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1076,18 +660,12 @@ const Checklist = ({
                                     value={amountOfDelayInFiling}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.amountOfDelayInFiling}
-                                </p>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     8. Whether application for condonation of
                                     delay is filed with appeal
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isCondonationOfDelayFiled}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1160,17 +738,11 @@ const Checklist = ({
                                     value={objectionForCondonation}
                                     onChange={(e) => onChange(e)}
                                 ></textarea>
-                                <p className="invalid-feedback d-block">
-                                    {formError.objectionForCondonation}
-                                </p>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     9. Whether requisite fees paid
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isFeesPaid}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1242,18 +814,12 @@ const Checklist = ({
                                     value={dateOfPayment}
                                     onChange={(e) => onChange(e)}
                                 />
-                                <p className="invalid-feedback d-block">
-                                    {formError.dateOfPayment}
-                                </p>
                             </div>
 
                             <div className="col-md-6">
                                 <label className="form-label">
                                     10. Whether the required documents are
                                     filled with Index & Pagination
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isPaginationCorrect}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1323,9 +889,6 @@ const Checklist = ({
                                     value={legibleDocs}
                                     onChange={(e) => onChange(e)}
                                 ></textarea>
-                                <p className="invalid-feedback d-block">
-                                    {formError.legibleDocs}
-                                </p>
                             </div>
 
                             <div className="col-12">
@@ -1338,9 +901,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     i. Whether copy of Appeal Memo is annexed
                                     for giving the same to the other side
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isAppealMemoAnnexed}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1384,9 +944,6 @@ const Checklist = ({
                             <div className="col-md-5">
                                 <label className="form-label">
                                     ii. Or served to other side by post/courier
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isServedByPost}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1429,9 +986,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     12. Whether Vakalatnama/ Authorization is
                                     filed and properly stamped
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isAuthStamped}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1474,9 +1028,6 @@ const Checklist = ({
                                 <label className="form-label">
                                     13. Whether e-mail/phone/Mobile No. is on
                                     record
-                                    <p className="invalid-feedback d-block">
-                                        {formError.isEmailPhoneOnRecord}
-                                    </p>
                                 </label>
                             </div>
 
@@ -1519,7 +1070,7 @@ const Checklist = ({
                                     <span className="icon text-white-50">
                                         <i className="fas fa-check"></i>
                                     </span>
-                                    <span className="text">Update Form A</span>
+                                    <span className="text">Submit Form A</span>
                                 </button>
                                 <div className="my-2"></div>
                             </div>
@@ -1531,10 +1082,4 @@ const Checklist = ({
     );
 };
 
-const mapStateToProps = (state) => {
-    return { checklist: state.checklist };
-};
-
-export default connect(mapStateToProps, { createChecklist, getChecklist })(
-    withRouter(Checklist)
-);
+export default ChecklistForm;

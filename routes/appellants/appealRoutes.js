@@ -595,7 +595,11 @@ router.get('/appeals/:appealId/revertcheck', auth, async (req, res) => {
             ? forward.get({ plain: true }).processStatus
             : null;
 
-        res.json({ isWithAppellant, forwardStatus });
+        const revertReason = forward
+            ? forward.get({ plain: true }).revertReason
+            : null;
+
+        res.json({ isWithAppellant, forwardStatus, revertReason });
     } catch (err) {
         console.log(err.message);
         res.status(500).send('Server Error');

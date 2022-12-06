@@ -21,6 +21,7 @@ const Appeal = require('../../models/Appeal');
 const AppealState = require('../../models/AppealState');
 const Checklist = require('../../models/Checklist');
 const Forward = require('../../models/Forward');
+const HardCopiesDate = require('../../models/HardCopiesDate');
 const BenchAppeal = require('../../models/BenchAppeal');
 const Payment = require('../../models/Payment');
 
@@ -330,6 +331,26 @@ router.post(
     }
 );
 
+// @route GET api/registrar/appeals/:id/remarks
+// @desc  GET official Remarks
+// @access Private
+
+router.get('/appeals/:id/remarks', auth, isRegistrar, async (req, res) => {
+    try {
+        const remarks = await Forward.findOne({
+            attributes: ['comments'],
+            where: {
+                appealId: req.params.id,
+            },
+        });
+
+        res.json(remarks);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
 // @route GET api/registrar/appeals/:id/checklist
 // @desc  View details of filled Checklist (Form A)
 // @access Private
@@ -383,7 +404,7 @@ router.patch('/appeals/:id/revert', auth, isRegistrar, async (req, res) => {
         await Forward.update(
             {
                 processStatus: 'R',
-                comments: revertReason,
+                revertReason: revertReason,
             },
             {
                 where: {
@@ -393,6 +414,44 @@ router.patch('/appeals/:id/revert', auth, isRegistrar, async (req, res) => {
         );
 
         res.json({ reason: revertReason });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route POST api/registrar/appeals/:id/setdatedoc
+// @desc  Set date for document submission
+// @access Private
+router.post('/appeals/:id/setdatedoc', auth, isRegistrar, async (req, res) => {
+    try {
+        const { dateOfSubmission } = req.body;
+
+        const hardCopiesDate = HardCopiesDate.build({
+            dateOfSubmission,
+            appealId: req.params.id,
+        });
+
+        await hardCopiesDate.save();
+
+        res.json(hardCopiesDate);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+// @route GET api/registrar/appeals/:id/getdatedoc
+// @desc  GET date for document submission
+// @access Private
+router.get('/appeals/:id/getdatedoc', auth, async (req, res) => {
+    try {
+        const hardCopiesDate = await HardCopiesDate.findOne({
+            attributes: ['dateOfSubmission'],
+            where: { appealId: req.params.id },
+        });
+
+        res.json(hardCopiesDate);
     } catch (err) {
         console.log(err.message);
         res.status(500).send('Server Error');

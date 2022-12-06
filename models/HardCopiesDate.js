@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-const Forward = sequelize.define(
-    'forward',
+const HardCopiesDate = sequelize.define(
+    'hardCopiesDate',
     {
         id: {
             type: Sequelize.INTEGER,
@@ -12,21 +12,12 @@ const Forward = sequelize.define(
             primaryKey: true,
         },
 
-        processStatus: {
+        dateOfSubmission: {
             type: Sequelize.STRING,
             allowNull: false,
-        },
-
-        comments: {
-            type: Sequelize.TEXT,
-            allowNull: false,
-        },
-
-        revertReason: {
-            type: Sequelize.TEXT,
         },
     },
     { timestamps: false }
 );
 
-module.exports = Forward;
+module.exports = HardCopiesDate;

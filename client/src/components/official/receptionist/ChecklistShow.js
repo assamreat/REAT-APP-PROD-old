@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import axios from 'axios';
-const fileDownload = require('js-file-download');
-
 const ChecklistShow = ({ checklist }) => {
     const radioValue = (value) => {
         switch (value) {
@@ -22,36 +19,16 @@ const ChecklistShow = ({ checklist }) => {
             <div className="card shadow mb-4">
                 <div className="card-header py-3 d-flex justify-content-between align-items-center">
                     <h6 className="m-0 font-weight-bold ">CHECKLIST</h6>
-                    <div>
-                        <Link
-                            to={`/official/registrar/appeals/${checklist.appealId}/checklist/edit`}
-                            className="btn btn-sm btn-primary btn-icon-split mr-3"
-                        >
-                            <span className="icon text-white-50">
-                                <i className="fas fa-flag"></i>
-                            </span>
-                            <span className="text">Edit Form A</span>
-                        </Link>
-                        <button
-                            className="btn btn-sm btn-primary fw-bold"
-                            onClick={async () => {
-                                const res = await axios.get(
-                                    `/api/registrar/checklist/${checklist.id}/print`,
-                                    {
-                                        responseType: 'blob',
-                                    }
-                                );
 
-                                fileDownload(
-                                    res.data,
-                                    'checklist-' + checklist.id + '.pdf'
-                                );
-                            }}
-                        >
-                            <i className="fa-solid fa-download"></i> Download
-                            PDF
-                        </button>
-                    </div>
+                    <Link
+                        to={`/official/receptionist/appeals/${checklist.appealId}/checklist/edit`}
+                        className="btn btn-primary btn-icon-split"
+                    >
+                        <span className="icon text-white-50">
+                            <i className="fas fa-flag"></i>
+                        </span>
+                        <span className="text">Edit Form A</span>
+                    </Link>
                 </div>
                 <div className="card-body">
                     <div className="row g-3">

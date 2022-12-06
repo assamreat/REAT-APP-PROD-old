@@ -12,6 +12,8 @@ import {
     GET_APPEAL_REGISTRAR,
     GET_APPEALS_APPELLANT,
     GET_APPEAL_APPELLANT,
+    SET_DATE_DOCSUB,
+    GET_DATE_DOCSUB,
     REVERT_APPEAL,
 } from './types';
 
@@ -212,6 +214,55 @@ export const appellantGetAppeal = (id) => async (dispatch) => {
 
         dispatch({
             type: GET_APPEAL_APPELLANT,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: APPEAL_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
+// Set Date for document submission
+export const setDateForDocSub = (dateOfSubmission, id) => async (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    try {
+        const res = await axios.post(
+            `/api/registrar/appeals/${id}/setdatedoc`,
+            dateOfSubmission,
+            config
+        );
+
+        dispatch({
+            type: SET_DATE_DOCSUB,
+            payload: res.data,
+        });
+    } catch (err) {
+        dispatch({
+            type: APPEAL_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status,
+            },
+        });
+    }
+};
+
+// Set Date for document submission
+export const getDateForDocSub = (id) => async (dispatch) => {
+    try {
+        const res = await axios.get(`/api/registrar/appeals/${id}/getdatedoc`);
+
+        dispatch({
+            type: GET_DATE_DOCSUB,
             payload: res.data,
         });
     } catch (err) {

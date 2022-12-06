@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { registrarGetAppeal } from '../../../actions/appeal';
 
 import axios from 'axios';
@@ -18,10 +19,19 @@ const AppealShow = ({ registrarGetAppeal, match, appeal: { appeal } }) => {
             <h1 className="h3 mb-2 text-gray-800">All Details</h1>
             <p className="mb-4">All the details</p>
             <div className="card shadow mb-4">
-                <div className="card-header py-3">
+                <div className="card-header py-3 d-flex justify-content-between">
                     <h6 className="m-0 font-weight-bold text-primary">
                         Details of the Appeal
                     </h6>
+                    <Link
+                        to={`/official/registrar/appeals/${appeal.id}/remarks`}
+                        className="btn btn-sm btn-primary btn-icon-split mr-3"
+                    >
+                        <span className="icon text-white-50">
+                            <i className="fas fa-flag"></i>
+                        </span>
+                        <span className="text">Verifying Official Remarks</span>
+                    </Link>
                 </div>
                 <div className="card-body">
                     <div className="container mt-5">

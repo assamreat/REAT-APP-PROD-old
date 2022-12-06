@@ -36,6 +36,7 @@ const Appeal = require('./models/Appeal');
 const AppealState = require('./models/AppealState');
 const Checklist = require('./models/Checklist');
 const Forward = require('./models/Forward');
+const HardCopiesDate = require('./models/HardCopiesDate');
 const BenchAppeal = require('./models/BenchAppeal');
 const Payment = require('./models/Payment');
 
@@ -53,6 +54,7 @@ const appellantUserRoutes = require('./routes/appellants/userRoutes');
 const appealRoutes = require('./routes/appellants/appealRoutes');
 const receptionistRoutes = require('./routes/officials/receptionistRoutes');
 const registrarRoutes = require('./routes/officials/registrarRoutes');
+const checklistRoutes = require('./routes/officials/checklistRoutes');
 const downloadRoutes = require('./routes/officials/downloadRoutes');
 const paymentRoutes = require('./routes/appellants/paymentRoutes');
 
@@ -62,6 +64,7 @@ app.use('/api/appellants', appellantUserRoutes);
 app.use('/api/appellant', appealRoutes);
 app.use('/api/receptionist', receptionistRoutes);
 app.use('/api/registrar', registrarRoutes);
+app.use('/api/appeals', checklistRoutes);
 app.use('/api/download', downloadRoutes);
 app.use('/payment', paymentRoutes);
 
@@ -85,6 +88,9 @@ Appeal.hasOne(Checklist);
 
 Forward.belongsTo(Appeal, { constraints: true, onDelete: 'CASCADE' });
 Appeal.hasOne(Forward);
+
+HardCopiesDate.belongsTo(Appeal, { constraints: true, onDelete: 'CASCADE' });
+Appeal.hasOne(HardCopiesDate);
 
 BenchAppeal.belongsTo(Appeal, { constraints: true, onDelete: 'CASCADE' });
 Appeal.hasOne(BenchAppeal);

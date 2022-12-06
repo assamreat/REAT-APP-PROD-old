@@ -17,7 +17,7 @@ export const createChecklist = (formData, id, history) => async (dispatch) => {
     const body = JSON.stringify(formData);
     try {
         const res = await axios.post(
-            `/api/registrar/appeals/${id}/checklist`,
+            `/api/appeals/${id}/checklist`,
             body,
             config
         );
@@ -25,7 +25,7 @@ export const createChecklist = (formData, id, history) => async (dispatch) => {
             type: CREATE_CHECKLIST,
             payload: res.data,
         });
-        history.push(`/official/registrar/appeals`);
+        history.push(`/official/login`);
     } catch (err) {
         dispatch({
             type: CHECKLIST_ERROR,
@@ -45,7 +45,7 @@ export const createChecklist = (formData, id, history) => async (dispatch) => {
 // View Checklist
 export const getChecklist = (id) => async (dispatch) => {
     try {
-        const res = await axios.get(`/api/registrar/appeals/${id}/checklist`);
+        const res = await axios.get(`/api/appeals/${id}/checklist`);
 
         dispatch({
             type: GET_CHECKLIST,

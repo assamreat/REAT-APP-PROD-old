@@ -1,25 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { getDateOfHearing } from '../../actions/appeal';
+import { getDateOfHearing, getDateForDocSub } from '../../actions/appeal';
+import { revertCheck } from '../../actions/forward';
 
 const AppealStatus = ({
     getDateOfHearing,
+    getDateForDocSub,
+    revertCheck,
     match,
-    appeal: { dateOfHearing },
+    appeal: { dateOfHearing, dateOfDocSub },
+    forward: { revertReason, forwardStatus },
 }) => {
     const { id } = match.params;
     useEffect(() => {
+        getDateForDocSub(id);
         getDateOfHearing(id);
+        revertCheck(id);
     }, []);
 
     const getStatus = () => {
         let appealStatus;
 
-        dateOfHearing
-            ? (appealStatus = `Next date of hearing:  ${dateOfHearing}`)
-            : (appealStatus =
-                  'Appeal is with Reat Official. Please submit the documenst in the REAT Office');
+        if (dateOfHearing) {
+            appealStatus = `Date Of Hearing:  ${dateOfHearing}`;
+            return appealStatus;
+        } else if (revertReason && forwardStatus == 'R') {
+            appealStatus = (
+                <Fragment>
+                    <p>Please update the appeal with following remarks:</p>
+                    <p className="mt-3">{revertReason} </p>
+                </Fragment>
+            );
+        } else if (dateOfDocSub) {
+            appealStatus = (
+                <p>
+                    Please submit the hardcopies of documents in the REAT office
+                    before <h1 className="mt-3">{dateOfDocSub} </h1>
+                </p>
+            );
+            return appealStatus;
+        } else {
+            appealStatus = `Appeal is with REAT Official`;
+        }
+
+        // dateOfHearing
+        //     ? (appealStatus = `Date Of Hearing:  ${dateOfHearing}`)
+        //     : (appealStatus = 'Appeal is with REAT Official');
 
         return appealStatus;
     };
@@ -38,7 +65,11 @@ const AppealStatus = ({
 };
 
 const mapStateToProps = (state) => {
-    return { appeal: state.appeal };
+    return { appeal: state.appeal, forward: state.forward };
 };
 
-export default connect(mapStateToProps, { getDateOfHearing })(AppealStatus);
+export default connect(mapStateToProps, {
+    getDateOfHearing,
+    getDateForDocSub,
+    revertCheck,
+})(AppealStatus);

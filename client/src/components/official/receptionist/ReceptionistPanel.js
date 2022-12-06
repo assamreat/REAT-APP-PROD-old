@@ -35,6 +35,7 @@ const ReceptionistPanel = ({ getAppeals, appeal: { appeals, loading } }) => {
                                     <th>Respondent</th>
                                     <th>Details</th>
                                     <th>Documents</th>
+                                    <th>Checklist</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

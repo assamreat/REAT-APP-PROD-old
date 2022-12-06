@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { forwardToBench, revertAppeal } from '../../../actions/appeal';
+import {
+    forwardToBench,
+    revertAppeal,
+    setDateForDocSub,
+    getDateForDocSub,
+} from '../../../actions/appeal';
 
-const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
+const AppealAction = ({
+    match,
+    forwardToBench,
+    revertAppeal,
+    setDateForDocSub,
+    getDateForDocSub,
+    appeal: { dateOfDocSub },
+    history,
+}) => {
     const [formData, setFormData] = useState({
         revertReason: '',
     });
@@ -36,6 +49,38 @@ const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
         }
     };
 
+    useEffect(() => {
+        const { id } = match.params;
+        getDateForDocSub(id);
+    }, []);
+
+    const [docdate, setDocdate] = useState({ dateOfSubmission: '' });
+    const [docdateError, setDocdateError] = useState({});
+
+    const validateDocDate = (values) => {
+        const error = {};
+
+        if (!values.dateOfSubmission)
+            error.dateOfSubmission = 'Please select a date';
+
+        return error;
+    };
+
+    const onDocdateChange = (e) => {
+        setDocdate({ [e.target.name]: e.target.value });
+    };
+
+    const onDocDateSubmit = (e) => {
+        e.preventDefault();
+
+        setDocdateError(validateDocDate(docdate));
+
+        if (Object.keys(validateDocDate(docdate)).length === 0) {
+            const { id } = match.params;
+            setDateForDocSub(docdate, id);
+        }
+    };
+
     const [benchdate, setBenchdate] = useState({ benchdate: '' });
     const [benchdateError, setBenchdateError] = useState({});
 
@@ -65,9 +110,8 @@ const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
 
     return (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">Forward Appeal</h1>
-            <p className="mb-4">Take Action if Form A filled Up</p>
-
+            <h1 className="h3 mb-2 text-gray-800">Notify Appellant</h1>
+            <p className="mb-4">Please select a reponse to notify appellant</p>
             <div className="row">
                 <div className="col-xl-6 col-lg-6">
                     <div className="card shadow mb-4">
@@ -116,18 +160,84 @@ const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
                     </div>
                 </div>
 
+                {dateOfDocSub ? (
+                    <div className="col-xl-6 col-lg-6">
+                        <div className="card shadow mb-4">
+                            <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 className="m-0 font-weight-bold text-primary">
+                                    Ask hard copies of documents
+                                </h6>
+                            </div>
+                            <div className="card-body">
+                                <p>
+                                    Last Date for document submission{' '}
+                                    <b>{dateOfDocSub}</b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="col-xl-6 col-lg-6">
+                        <div className="card shadow mb-4">
+                            <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 className="m-0 font-weight-bold text-primary">
+                                    Ask hard copies of documents
+                                </h6>
+                            </div>
+                            <div className="card-body">
+                                <p>
+                                    Please select a date before which hard
+                                    copies of documents needs to be submitted.
+                                </p>
+
+                                <label htmlFor="benchdate">
+                                    Date for documents submission
+                                </label>
+                                <input
+                                    className="form-control mb-3"
+                                    type="date"
+                                    id="dateOfSubmission"
+                                    name="dateOfSubmission"
+                                    value={docdate.dateOfSubmission}
+                                    onChange={(e) => onDocdateChange(e)}
+                                ></input>
+
+                                {docdateError &&
+                                    docdateError.dateOfSubmission && (
+                                        <p className="invalid-feedback d-block">
+                                            {docdateError.dateOfSubmission}
+                                        </p>
+                                    )}
+                                <button
+                                    onClick={(e) => onDocDateSubmit(e)}
+                                    className="btn btn-success btn-icon-split"
+                                >
+                                    <span className="icon text-white-50">
+                                        <i className="fa-solid fa-angles-right"></i>
+                                    </span>
+                                    <span className="text">
+                                        Ask for hardcopies
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <div className="row">
                 <div className="col-xl-6 col-lg-6">
                     <div className="card shadow mb-4">
                         <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 className="m-0 font-weight-bold text-primary">
-                                Forward Appeal To Bench
+                                Date Of hearing of Appeal
                             </h6>
                         </div>
                         <div className="card-body">
                             <p>
                                 If checklist has been filled up for the Appeal
-                                and all the documents are fine please forward
-                                the appeal to the bench.
+                                and all the documents are fine please select the
+                                date of hearing of the appeal.
                             </p>
 
                             <label htmlFor="benchdate">Date of hearing</label>
@@ -152,7 +262,7 @@ const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
                                 <span className="icon text-white-50">
                                     <i className="fa-solid fa-angles-right"></i>
                                 </span>
-                                <span className="text">Forward to Bench</span>
+                                <span className="text">Date of hearing</span>
                             </button>
                         </div>
                     </div>
@@ -162,6 +272,15 @@ const AppealAction = ({ match, forwardToBench, revertAppeal, history }) => {
     );
 };
 
-export default connect(null, { forwardToBench, revertAppeal })(
-    withRouter(AppealAction)
-);
+const mapStateToProps = (state) => {
+    return {
+        appeal: state.appeal,
+    };
+};
+
+export default connect(mapStateToProps, {
+    forwardToBench,
+    revertAppeal,
+    setDateForDocSub,
+    getDateForDocSub,
+})(withRouter(AppealAction));

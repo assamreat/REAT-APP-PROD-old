@@ -26,7 +26,7 @@ const Sidebar = ({ logout }) => {
             <li className="nav-item active">
                 <Link className="nav-link" to="/official/admin/dashboard">
                     <i className="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Receptionist Panel</span>
+                    <span>Verifying Official</span>
                 </Link>
             </li>
 
@@ -184,7 +184,7 @@ const Sidebar = ({ logout }) => {
                     alt="..."
                 /> */}
                 <p className="text-center mb-2">
-                    <strong>Receptionist Panel-</strong> Assam Real Estate
+                    <strong>Verifying Official-</strong> Assam Real Estate
                     Appellate Tribunal
                 </p>
                 <button className="btn btn-success btn-sm" onClick={logout}>
