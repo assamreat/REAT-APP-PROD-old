@@ -103,9 +103,9 @@ module.exports = [
         min: 1,
     }),
     body('res_email_id', 'Please include a valid email').isEmail(),
-    body('reg_num', 'Please include registration number').isLength({
-        min: 1,
-    }),
+    // body('reg_num', 'Please include registration number').isLength({
+    //     min: 1,
+    // }),
 
     // body('reason_for_delay', 'Please include reasons for delay').isLength({
     //     min: 1,

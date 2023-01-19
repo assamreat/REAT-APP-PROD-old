@@ -168,7 +168,7 @@ const Appeal = sequelize.define(
         },
         reg_num: {
             type: Sequelize.STRING,
-            allowNull: false,
+            // allowNull: false,
         },
         is_limitation_specified: {
             type: Sequelize.BOOLEAN,

@@ -184,7 +184,7 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                 <div>
                                     <div className="intro">
                                         <strong>
-                                            3. Jurisdiction of the Appellant
+                                            3. Jurisdiction of the Appellate
                                             Tribunal:
                                         </strong>
                                         <br />
@@ -258,7 +258,7 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                             If the appeal is filed after the
                                             expiry of the limitation period
                                             specified under sub-section (2) of
-                                            section 44 specify reasons for
+                                            section 44, specify reasons for
                                             delay:
                                         </strong>
                                     </div>
@@ -284,7 +284,7 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                     <strong>
                                         Give concise statement of facts and
                                         grounds of appeal against the specific
-                                        order of the Authority of the
+                                        order of the Authority or the
                                         Adjudicating Officer, as the case may be
                                         passed under:
                                     </strong>
@@ -387,9 +387,10 @@ const CreateAppealConfirm = ({ prevStep, values, onSubmit }) => {
                                         <strong>
                                             The appellant further declares that
                                             the matter regarding which this
-                                            appeal has been made, is not pending
-                                            before any court of law or any other
-                                            authority or any other Tribunal(s):
+                                            appeal has been made, is pending/not
+                                            pending before any court of law or
+                                            any other authority or any other
+                                            Tribunal(s):
                                         </strong>
                                     </div>
                                     <div className="col-sm-6 text-right">

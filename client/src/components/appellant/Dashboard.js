@@ -18,8 +18,11 @@ const Dashboard = ({
         <div>loading</div>
     ) : (
         <div className="container-fluid">
-            <h1 className="h3 mb-2 text-gray-800">All Appeals</h1>
-            <p className="mb-4">List of all appeals</p>
+            <h1 className="h3 mb-2 text-gray-800">Appeals Filed</h1>
+            <p className="mb-4">
+                Please download a copy of the filled in form and submit along
+                with the documents after receiving instruction
+            </p>
 
             <div className="card shadow mb-4">
                 <div className="card-header py-3">
@@ -42,7 +45,7 @@ const Dashboard = ({
                                     <th>Respondent</th>
                                     <th>Details</th>
                                     <th>Payment Status</th>
-                                    <th>Appeal Status</th>
+                                    <th>Track Status</th>
                                 </tr>
                             </thead>
 

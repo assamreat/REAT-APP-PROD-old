@@ -41,7 +41,7 @@ const AppealStatus = ({
             );
             return appealStatus;
         } else {
-            appealStatus = `Appeal is with REAT Official`;
+            appealStatus = `Appeal is under process`;
         }
 
         // dateOfHearing

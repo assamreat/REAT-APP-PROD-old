@@ -127,7 +127,7 @@ const ChecklistForm = ({
 
                             <div className="col-md-2">
                                 <label className="form-label">
-                                    <b>Vs</b>
+                                    <b>vs</b>
                                 </label>
                             </div>
 

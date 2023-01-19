@@ -208,10 +208,10 @@ const CreateAppealDetails = ({
             errors.res_email_err = 'ca_danger';
         }
 
-        if (!values.reg_num) {
-            errors.reg_num = 'Project Registration Number is required';
-            errors.reg_num_err = 'ca_danger';
-        }
+        // if (!values.reg_num) {
+        //     errors.reg_num = 'Project Registration Number is required';
+        //     errors.reg_num_err = 'ca_danger';
+        // }
         if (!values.facts_of_case) {
             errors.facts_of_case = 'Please specify Facts of the case';
             errors.facts_of_case_err = 'ca_danger';
@@ -545,7 +545,7 @@ const CreateAppealDetails = ({
                 </div>
                 <div className="ca_div item">
                     <p className="ca_p">
-                        Office Address of the Respondent
+                        Official Address of the Respondent
                         <span className="required">*</span>
                         &nbsp;
                         <span className="text-danger">
@@ -762,7 +762,7 @@ const CreateAppealDetails = ({
                     />
                 </div>
                 <h5 className="ca_h5">
-                    3. Jurisdiction of the Appellant Tribunal
+                    3. Jurisdiction of the Appellate Tribunal
                 </h5>
                 <div className="ca_div question">
                     <div className="ca_div question-answer checkbox-item">
@@ -778,13 +778,13 @@ const CreateAppealDetails = ({
                 <div className="ca_div item">
                     <p className="ca_p">
                         Project Registration Number
-                        <span className="required">*</span>
+                        {/* <span className="required">*</span> */}
                         &nbsp;
-                        <span className="text-danger">
+                        {/* <span className="text-danger">
                             {formErrors.reg_num
                                 ? `(${formErrors.reg_num})`
                                 : null}
-                        </span>
+                        </span> */}
                     </p>
                     <input
                         className="ca_input"
@@ -835,7 +835,7 @@ const CreateAppealDetails = ({
                     <p className="ca_p">
                         If the appeal is filed after the expiry of the
                         limitation period specified under sub-section (2) of
-                        section 44 specify reasons for delay.
+                        section 44, specify reasons for delay.
                     </p>
                     <textarea
                         className="ca_textarea"
@@ -850,7 +850,7 @@ const CreateAppealDetails = ({
                 <div className="ca_div item">
                     <p className="ca_p">
                         Give concise statement of facts and grounds of appeal
-                        against the specific order of the Authority of the
+                        against the specific order of the Authority or the
                         Adjudicating Officer, as the case may be passed under.
                         <span className="required">*</span>
                         &nbsp;
@@ -931,9 +931,9 @@ const CreateAppealDetails = ({
                 <div className="ca_div question">
                     <p>
                         The appellant further declares that the matter regarding
-                        which this appeal has been made, is not pending before
-                        any court of law or any other authority or any other
-                        Tribunal(s).<span className="required">*</span>
+                        which this appeal has been made, is pending/not pending
+                        before any court of law or any other authority or any
+                        other Tribunal(s).<span className="required">*</span>
                         <span className="invalid-feedback d-block">
                             {formErrors.is_matter_pending}
                         </span>
