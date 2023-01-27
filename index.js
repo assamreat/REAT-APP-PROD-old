@@ -113,7 +113,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 sequelize
-    // .sync({ force: true })
     .sync()
     .then((result) => {
         app.listen(PORT, () => {
