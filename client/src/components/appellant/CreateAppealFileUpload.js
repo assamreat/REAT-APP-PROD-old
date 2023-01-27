@@ -54,6 +54,10 @@ const CreateAppealFileUpload = ({
                             Please Upload the following Douments (merged in a
                             single pdf)(file size needs to be less than 25 mb)
                         </h3>
+                        <p>
+                            (Please do black and white scan under 300 DPI
+                            resolution for smaller file size)
+                        </p>
                         <h6>
                             i. An attested true copy of the order against which
                             the appeal is filed
